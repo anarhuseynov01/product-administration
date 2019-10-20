@@ -8,15 +8,11 @@
 
 <script>
 import Header from "./components/shared/Header";
-// import ProductPurchase from "./components/products/ProductPurchase";
-// import ProductSell from "./components/products/ProductSell";
-// import ProductList from "./components/products/ProductList";
 import Footer from "./components/shared/Footer";
 export default {
   name: 'app',
   components: {
     appHeader: Header,
-    // appContainer: ProductPurchase,
     appFooter: Footer
   },
   data () {

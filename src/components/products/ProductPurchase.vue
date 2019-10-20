@@ -7,23 +7,23 @@
                 <hr>
                 <div class="form-group">
                     <label>Product Name</label>
-                    <input type="text" class="form-control" placeholder="Enter product name..">
+                    <input v-model="product.name" type="text" class="form-control" placeholder="Enter product name..">
                 </div>
                 <div class="form-group">
                     <label>Count</label>
-                    <input type="text" class="form-control" placeholder="Enter product count..">
+                    <input v-model="product.count" type="number" class="form-control" placeholder="Enter product count..">
                 </div>
                 <div class="form-group">
                     <label>Price</label>
-                    <input type="text" class="form-control" placeholder="Enter product price..">
+                    <input v-model="product.price" type="number" class="form-control" placeholder="Enter product price..">
                 </div>
                 <div class="form-group">
                     <label>Description</label>
-                    <textarea cols="30" rows="5" placeholder="Enter product description..."
+                    <textarea v-model="product.description" cols="30" rows="5" placeholder="Enter product description..."
                               class="form-control"></textarea>
                 </div>
                 <hr>
-                <button class="btn btn-primary">Save</button>
+                <button class="btn btn-primary" @click="saveProduct">Save</button>
             </div>
         </div>
     </div>
@@ -33,7 +33,25 @@
 
 <script>
 export default {
-    
+    data(){
+        return {
+            product : {
+                name: "",
+                count: null,
+                price: null,
+                description: ""
+            }
+        }
+    },
+    methods: {
+        saveProduct(){
+            this.$store.dispatch("saveProduct",this.product);
+            this.product.name = "";
+            this.product.count = null;
+            this.product.price = null;
+            this.product.description = "";
+        }
+    }
 }
 </script>
 

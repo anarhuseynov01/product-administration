@@ -1,3 +1,5 @@
+import Vue from "vue"
+
 const state = {
     products: []
 }
@@ -22,7 +24,11 @@ const actions = {
         // vue resource operations...
     },
     saveProduct({commit},payload){
-
+        let url = "https://product-administration.firebaseio.com/products.json"
+        Vue.http.post(url,payload)
+            .then((response) => {
+                console.log(response)
+            })
     },
     sellProdact({commit},paylaod){
 
@@ -30,7 +36,7 @@ const actions = {
 }
 
 
-export default {
+export const products = {
     state,
     getters,
     mutations,
