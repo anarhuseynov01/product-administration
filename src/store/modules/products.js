@@ -23,11 +23,13 @@ const actions = {
     initApp({commit}){
         // vue resource operations...
     },
-    saveProduct({commit},payload){
+    saveProduct({commit,state},payload){
         let url = "https://product-administration.firebaseio.com/products.json"
         Vue.http.post(url,payload)
             .then((response) => {
-                console.log(response)
+                payload.key = response.body.name;
+                commit("updateProductList",payload);
+                console.log(state.products)
             })
     },
     sellProdact({commit},paylaod){

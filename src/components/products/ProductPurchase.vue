@@ -46,10 +46,6 @@ export default {
     methods: {
         saveProduct(){
             this.$store.dispatch("saveProduct",this.product);
-            this.product.name = "";
-            this.product.count = null;
-            this.product.price = null;
-            this.product.description = "";
         }
     }
 }
