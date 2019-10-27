@@ -1,4 +1,4 @@
-# urun-islemleri
+# product-administration
 
 > A Vue.js project
 
