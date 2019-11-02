@@ -19,6 +19,9 @@ export default {
     return {
       
     }
+  },
+  mounted(){
+    this.$store.dispatch("getTradeResult")
   }
 }
 </script>
