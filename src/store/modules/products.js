@@ -31,6 +31,14 @@ const actions = {
                 commit("updateProductList",payload);
             })
          
+        let tradeResult = {
+            purchase: payload.price,
+            sale: 0,
+            count: payload.count
+        }
+
+        dispatch("setTradeResult", tradeResult)
+
         payload.name = "";
         payload.count = null
         payload.price = null

@@ -21,12 +21,24 @@ Vue.use(Vuex);
      },
      mutations: {
         updateTradeResult(state,payload){
-
+            state.purchase += parseFloat(payload.purchase) * parseInt(payload.count)
+            state.sale += parseFloat(payload.sale) * parseInt(payload.count)
+            state.balance = parseFloat(state.sale) - parseFloat(state.purchase)
         }
      },
      actions: {
         setTradeResult({commit,state},payload){
+            commit("updateTradeResult",payload)
 
+            let tradeDate = {
+                purchase: state.purchase,
+                sale: state.sale
+            }
+            
+            Vue.http.put("https://product-administration.firebaseio.com/trade-result.json",tradeDate)
+            .then(response => {
+                console.log(response)
+            })
         },
         getTradeResult({commit}){
 
