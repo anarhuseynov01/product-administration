@@ -39,12 +39,14 @@ export default {
                 name: "",
                 count: null,
                 price: null,
-                description: ""
+                description: "",
+                saveButtonClicked: false
             }
         }
     },
     methods: {
         saveProduct(){
+            this.saveButtonClicked = true;
             this.$store.dispatch("saveProduct",this.product);
         }
     },
@@ -59,7 +61,7 @@ export default {
         }
     },
     beforeRouteLeave(to,from,next){
-        if(this.product.name.length > 0 || this.product.count > 0 || this.product.price > 0 || this.product.description.length > 0){
+        if(!this.saveButtonClicked  && (this.product.name.length > 0 || this.product.count > 0 || this.product.price > 0 || this.product.description.length > 0)){
             if(confirm("You have unsaved product.Are you sure?")){
                 next()
             } else {

@@ -1,5 +1,5 @@
-import Vue from "vue"
-
+import Vue from "vue";
+import { router } from "../../router"
 const state = {
     products: []
 }
@@ -38,11 +38,8 @@ const actions = {
         }
 
         dispatch("setTradeResult", tradeResult)
-
-        payload.name = "";
-        payload.count = null
-        payload.price = null
-        payload.description = "";
+        router.replace("/"); 
+       
     },
     sellProdact({commit},paylaod){
 
