@@ -1,5 +1,11 @@
 <template>
     <div class="container">
+        <div class="loading" :style="isLoading">
+            <div class="lds-ripple">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
     <div class="row">
         <div class="col-6 offset-3 pt-3 card mt-5 mb-5 shadow">
             <div class="card-body">
@@ -40,8 +46,8 @@ export default {
                 count: null,
                 price: null,
                 description: "",
-                saveButtonClicked: false
-            }
+            },
+            saveButtonClicked: false
         }
     },
     methods: {
@@ -57,7 +63,19 @@ export default {
             } else {
                 return true
             }
-            
+        },
+        isLoading(){
+            if(this.saveButtonClicked){
+                console.log("if block")
+                return {
+                    display: 'block'
+                }
+            }else {
+                console.log("else block")
+                return {
+                    display: 'none'
+                }
+            }
         }
     },
     beforeRouteLeave(to,from,next){
@@ -70,8 +88,9 @@ export default {
         } else {
             next()
         }
-
-        
+    },
+    mounted() {
+        // console.log(this.isLoading);
     }
 }
 </script>

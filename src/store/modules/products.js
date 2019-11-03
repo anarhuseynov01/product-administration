@@ -39,7 +39,6 @@ const actions = {
 
         dispatch("setTradeResult", tradeResult)
         router.replace("/"); 
-       
     },
     sellProdact({commit},paylaod){
 

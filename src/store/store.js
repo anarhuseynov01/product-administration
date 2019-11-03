@@ -36,12 +36,12 @@ Vue.use(Vuex);
         setTradeResult({commit,state},payload){
             commit("updateTradeResult",payload)
 
-            let tradeDate = {
+            let tradeData = {
                 purchase: state.purchase,
                 sale: state.sale
             }
             
-            Vue.http.put("https://product-administration.firebaseio.com/trade-result.json",tradeDate)
+            Vue.http.put("https://product-administration.firebaseio.com/trade-result.json",tradeData)
             .then(response => {
                 
             })
