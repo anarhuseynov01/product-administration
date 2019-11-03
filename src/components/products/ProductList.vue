@@ -17,8 +17,8 @@
                         <tr v-for="product in getProducts" :key="product.name + product.key">
                             <td class="align-middle text-center"><span class="badge badge-info"> {{ product.key }} </span></td>
                             <td class="align-middle text-center"> {{ product.name }} </td>
-                            <td class="align-middle text-center"> {{ product.count }} </td>
-                            <td style="width: 120px;"> {{ product.price }}</td>
+                            <td class="align-middle text-center" :class="countClasses(product.count)"> {{ product.count }} </td>
+                            <td style="width: 120px;"> {{ product.price | currency }}</td>
                             <td class="align-middle"> {{ product.description }}</td>
                         </tr>
                         </tbody>
@@ -40,8 +40,16 @@
 import {mapGetters} from 'vuex'
 export default {
     computed: {
-        ...mapGetters(['getProducts'])
+        ...mapGetters(['getProducts']),
     },
+    methods: {
+         countClasses(count){
+            return {
+                'btn-danger text-white': count == 0,
+                'btn-success text-white': count > 0,
+            }
+        }
+    }
 }
 </script>
 
