@@ -66,12 +66,10 @@ export default {
         },
         isLoading(){
             if(this.saveButtonClicked){
-                console.log("if block")
                 return {
                     display: 'block'
                 }
             }else {
-                console.log("else block")
                 return {
                     display: 'none'
                 }
@@ -89,7 +87,14 @@ export default {
             next()
         }
     },
+    created(){
+        console.log("created")
+    },
+    beforeMount(){
+        console.log("before Mounted")
+    },
     mounted() {
+        console.log("Mounted")
         // console.log(this.isLoading);
     }
 }

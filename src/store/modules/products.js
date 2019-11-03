@@ -21,7 +21,14 @@ const mutations = {
 
 const actions = {
     initApp({commit}){
-        // vue resource operations...
+        Vue.http.get("https://product-administration.firebaseio.com/products.json")
+        .then(res => {
+            let data = res.body;
+            for(let key in data){
+                data[key].key = key;
+                commit("updateProductList", data[key])
+            }
+        })
     },
     saveProduct({dispatch,commit,state},payload){
         let url = "https://product-administration.firebaseio.com/products.json"
