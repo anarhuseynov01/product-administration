@@ -45,7 +45,7 @@ export default {
     data(){
         return {
             selectedProduct: null,
-            myProduct: null
+            myProduct: null,
         }
     },
     computed: {
@@ -55,6 +55,15 @@ export default {
       getProduct(){
           this.myProduct = this.$store.getters.getProduct(this.selectedProduct)[0];
       }
+    },
+    mounted(){
+        const self = this;
+        for(let i in this.getProducts){
+            if(i == 0){
+                self.selectedProduct = this.getProducts[i].key;
+                this.getProduct();
+            }
+        }
     }
 }
 </script>
