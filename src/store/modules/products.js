@@ -9,7 +9,7 @@ const getters = {
         return state.products;
     },
     getProduct(state){
-
+        return val => state.products.filter(product => product.key == val)
     }
 }
 

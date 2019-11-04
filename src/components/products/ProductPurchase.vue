@@ -87,16 +87,6 @@ export default {
             next()
         }
     },
-    created(){
-        console.log("created")
-    },
-    beforeMount(){
-        console.log("before Mounted")
-    },
-    mounted() {
-        console.log("Mounted")
-        // console.log(this.isLoading);
-    }
 }
 </script>
 

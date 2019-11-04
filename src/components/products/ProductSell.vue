@@ -7,30 +7,25 @@
                         <hr>
                         <div class="form-group">
                             <label>Product Name</label>
-                            <select class="form-control">
-                                <option value="1">Product 1</option>
-                                <option value="1">Product 2</option>
-                                <option value="1">Product 3</option>
-                                <option value="1">Product 4</option>
-                                <option value="1">Product 5</option>
+                            <select class="form-control" v-model="selectedProduct" @change="getProduct">
+                                <option :value="product.key" v-for="product in getProducts" :key="product.name + product.key" :disabled="product.count == 0">{{product.name}}</option>
                             </select>
                         </div>
-                        <div class="card mb-2 border border-danger">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12 text-center">
-                                        <div class="mb-3">
-                                            <span class="badge badge-info">Stock : 4</span>
-                                            <span class="badge badge-primary">Price : 100,5 USD</span>
+                        <transition name="fade" mode="out-in">
+                            <div class="card mb-2 border border-danger" v-if="myProduct !== null">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 text-center">
+                                            <div class="mb-3">
+                                                <span class="badge badge-info">Stock : {{myProduct.count}}</span>
+                                                <span class="badge badge-primary">Price : {{myProduct.price | currency}}</span>
+                                            </div>
+                                            <p class="border border-warning p-2 text-secondary">{{myProduct.description}}</p>
                                         </div>
-                                        <p class="border border-warning p-2 text-secondary">Lorem ipsum dolor sit amet, consectetur
-                                            adipisicing elit. Assumenda debitis deleniti eos impedit iste numquam quos sit.
-                                            Dignissimos, mollitia nemo officia reiciendis repellendus rerum velit. Eos libero magnam
-                                            quas tempore!</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </transition>
                         <div class="form-group">
                             <label>Count</label>
                             <input type="text" class="form-control" placeholder="Enter product count...">
@@ -45,8 +40,22 @@
 
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-    
+    data(){
+        return {
+            selectedProduct: null,
+            myProduct: null
+        }
+    },
+    computed: {
+        ...mapGetters(["getProducts"])
+    },
+    methods: {
+      getProduct(){
+          this.myProduct = this.$store.getters.getProduct(this.selectedProduct)[0];
+      }
+    }
 }
 </script>
 
