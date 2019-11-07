@@ -28,10 +28,10 @@
                         </transition>
                         <div class="form-group">
                             <label>Count</label>
-                            <input type="text" class="form-control" placeholder="Enter product count...">
+                            <input type="text" class="form-control" placeholder="Enter product count..." v-model="productCount">
                         </div>
                         <hr>
-                        <button class="btn btn-primary">Save</button>
+                        <button class="btn btn-primary" @click="save">Save</button>
                     </div>
                 </div>
             </div>
@@ -46,6 +46,7 @@ export default {
         return {
             selectedProduct: null,
             myProduct: null,
+            productCount: null
         }
     },
     computed: {
@@ -54,6 +55,14 @@ export default {
     methods: {
       getProduct(){
           this.myProduct = this.$store.getters.getProduct(this.selectedProduct)[0];
+      },
+      save(){
+          let product = {
+              key: this.selectedProduct,
+              count: this.productCount 
+          }
+
+          this.$store.dispatch("sellProdact",product)
       }
     },
     mounted(){
