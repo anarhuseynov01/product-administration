@@ -1,5 +1,11 @@
 <template>
     <div class="container">
+            <div class="loading" :style="isLoading">
+                <div class="lds-ripple">
+                    <div></div>
+                    <div></div>
+                </div>
+             </div>
             <div class="row">
                 <div class="col-6 offset-3 pt-3 card mt-5 mb-5 shadow">
                     <div class="card-body">
@@ -8,6 +14,7 @@
                         <div class="form-group">
                             <label>Product Name</label>
                             <select class="form-control" v-model="selectedProduct" @change="getProduct">
+                                <option disabled selected = "true">Select your product</option>
                                 <option :value="product.key" v-for="product in getProducts" :key="product.name + product.key" :disabled="product.count == 0">{{product.name}}</option>
                             </select>
                         </div>
@@ -31,7 +38,7 @@
                             <input type="text" class="form-control" placeholder="Enter product count..." v-model="productCount">
                         </div>
                         <hr>
-                        <button class="btn btn-primary" @click="save">Save</button>
+                        <button class="btn btn-primary" :disabled="saveEnable" @click="save">Save</button>
                     </div>
                 </div>
             </div>
@@ -46,17 +53,37 @@ export default {
         return {
             selectedProduct: null,
             myProduct: null,
-            productCount: null
+            productCount: null,
+            saveClicked: false
         }
     },
     computed: {
-        ...mapGetters(["getProducts"])
+        ...mapGetters(["getProducts"]),
+        isLoading(){
+            if(this.saveClicked){
+                return {
+                    display: 'block'
+                }
+            }else {
+                return {
+                    display: 'none'
+                }
+            }  
+        },
+        saveEnable(){
+            if(this.selectedProduct !== null && this.productCount > 0){
+                return false
+            } else {
+                return true
+            }
+        },
     },
     methods: {
       getProduct(){
           this.myProduct = this.$store.getters.getProduct(this.selectedProduct)[0];
       },
       save(){
+          this.saveClicked = true;
           let product = {
               key: this.selectedProduct,
               count: this.productCount 
@@ -65,15 +92,17 @@ export default {
           this.$store.dispatch("sellProdact",product)
       }
     },
-    mounted(){
-        const self = this;
-        for(let i in this.getProducts){
-            if(i == 0){
-                self.selectedProduct = this.getProducts[i].key;
-                this.getProduct();
+    beforeRouteLeave(to,from,next){
+        if(!this.saveClicked && (this.selectedProduct !== null || this.productCount > 0)){
+            if(confirm("You have unsaved product.Are you sure?")){
+                next()
+            } else {
+                next(false)
             }
+        } else {
+            next()
         }
-    }
+    },
 }
 </script>
 
